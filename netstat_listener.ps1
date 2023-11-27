@@ -1,30 +1,30 @@
 
-
-#IP we expect to listen
-$ipaddress = "*8.8.8.8*"
-
- 
+#IP:port we expect to listen / (?!\S) -regex space 
+$ipaddress = "127.0.0.1:3702"
+$lastresult = $null
 
 do{
  
 
-    $result=$null
+    $result = $null
 
     $result = netstat -aon
-
 #    Write-Host "refresh"
 
  
 
-if($result -like $ipaddress){
+    if($result -match $ipaddress){
 
-    $result #console output
 
+
+       # $result #console output
+        $lastresult = $result -match $ipaddress
+        $lastresult
 #set proper txt file for logs
-
-    $result >> C:\netstat_log\logs.txt
+        $lastresult >> .\logs.txt
 
 }
+
 
 
 }while($true)
